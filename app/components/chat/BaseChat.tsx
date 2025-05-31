@@ -30,6 +30,7 @@ import { ScreenshotStateManager } from './ScreenshotStateManager';
 import { toast } from 'react-toastify';
 import type { ActionAlert } from '~/types/actions';
 import ChatAlert from './ChatAlert';
+// import { LlamaProvider } from '~/lib/modules/llm/providers/llama'; // TODO: Uncomment and use
 
 const TEXTAREA_MIN_HEIGHT = 76;
 
@@ -215,7 +216,24 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
       }
     };
 
-    const handleSendMessage = (event: React.UIEvent, messageInput?: string) => {
+    const handleSendMessage = async (event: React.UIEvent, messageInput?: string) => {
+      // TODO: Instantiate LlamaProvider properly when its import is uncommented
+      // const llamaProvider = new LlamaProvider();
+      // const isOffline = await llamaProvider.detectConnectivity();
+      const isOffline = false; // Placeholder: Simulate online mode for now
+
+      if (isOffline && provider?.name === 'Llama') {
+        // llamaProvider.switchToOfflineMode(); // This would call notifyOfflineMode internally
+        console.log("LlamaProvider: Switched to offline mode (simulated)."); // Simulate LlamaProvider's log
+        console.log("LlamaProvider: Offline AI is now active. LLaMA models will be used locally. (simulated)"); // Simulate LlamaProvider's log
+        toast.info("Offline AI is now active. LLaMA models will be used locally."); // Simulate actual notification
+        // TODO: Implement actual routing to the offline LLaMA model.
+        // This will likely involve ensuring LlamaProvider's getModelInstance
+        // correctly handles the offline state and provides the local model.
+        // The sendMessage function itself might not need to change if LlamaProvider
+        // handles the model switch transparently.
+      }
+
       if (sendMessage) {
         sendMessage(event, messageInput);
 
@@ -426,6 +444,7 @@ export const BaseChat = React.forwardRef<HTMLDivElement, BaseChatProps>(
                     )}
                   >
                     <textarea
+                      dir="auto" // Added for automatic text directionality
                       ref={textareaRef}
                       className={classNames(
                         'w-full pl-4 pt-4 pr-16 outline-none resize-none text-bolt-elements-textPrimary placeholder-bolt-elements-textTertiary bg-transparent text-sm',

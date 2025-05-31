@@ -3,6 +3,7 @@ import type { ModelInfo } from '~/lib/modules/llm/types';
 import type { IProviderSetting } from '~/types/model';
 import type { LanguageModelV1 } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
+import { logger } from '~/utils/logger';
 
 export default class OpenAIProvider extends BaseProvider {
   name = 'OpenAI';
@@ -39,10 +40,15 @@ export default class OpenAIProvider extends BaseProvider {
       throw new Error(`Missing API key for ${this.name} provider`);
     }
 
-    const openai = createOpenAI({
-      apiKey,
-    });
+    try {
+      const openai = createOpenAI({
+        apiKey,
+      });
 
-    return openai(model);
+      return openai(model);
+    } catch (error: any) {
+      logger.error(`[${this.name}] Failed to get model instance for model: ${model}`, error);
+      throw new Error(`Failed to get model instance for ${this.name} - ${model}: ${error.message}`);
+    }
   }
 }

@@ -12,6 +12,7 @@ import { PanelHeaderButton } from '~/components/ui/PanelHeaderButton';
 import { Slider, type SliderOptions } from '~/components/ui/Slider';
 import { workbenchStore, type WorkbenchViewType } from '~/lib/stores/workbench';
 import { classNames } from '~/utils/classNames';
+import { debounce } from '~/utils/debounce';
 import { cubicEasingFn } from '~/utils/easings';
 import { renderLogger } from '~/utils/logger';
 import { EditorPanel } from './EditorPanel';
@@ -83,9 +84,12 @@ export const Workbench = memo(({ chatStarted, isStreaming }: WorkspaceProps) => 
     workbenchStore.setDocuments(files);
   }, [files]);
 
-  const onEditorChange = useCallback<OnEditorChange>((update) => {
-    workbenchStore.setCurrentDocumentContent(update.content);
-  }, []);
+  const onEditorChange = useCallback<OnEditorChange>(
+    debounce((update) => {
+      workbenchStore.setCurrentDocumentContent(update.content);
+    }, 300), // Debounce by 300ms
+    [],
+  );
 
   const onEditorScroll = useCallback<OnEditorScroll>((position) => {
     workbenchStore.setCurrentDocumentScrollPosition(position);

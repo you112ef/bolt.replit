@@ -1,13 +1,12 @@
 import { useStore } from '@nanostores/react';
-import { memo, useMemo } from 'react';
+import React, { memo, useMemo, Suspense, lazy } from 'react';
 import { Panel, PanelGroup, PanelResizeHandle } from 'react-resizable-panels';
-import {
-  CodeMirrorEditor,
-  type EditorDocument,
-  type EditorSettings,
-  type OnChangeCallback as OnEditorChange,
-  type OnSaveCallback as OnEditorSave,
-  type OnScrollCallback as OnEditorScroll,
+import type {
+  EditorDocument,
+  EditorSettings,
+  OnChangeCallback as OnEditorChange,
+  OnSaveCallback as OnEditorSave,
+  OnScrollCallback as OnEditorScroll,
 } from '~/components/editor/codemirror/CodeMirrorEditor';
 import { PanelHeader } from '~/components/ui/PanelHeader';
 import { PanelHeaderButton } from '~/components/ui/PanelHeaderButton';
@@ -37,6 +36,10 @@ interface EditorPanelProps {
 const DEFAULT_EDITOR_SIZE = 100 - DEFAULT_TERMINAL_SIZE;
 
 const editorSettings: EditorSettings = { tabSize: 2 };
+
+const CodeMirrorEditor = lazy(() =>
+  import('~/components/editor/codemirror/CodeMirrorEditor').then(module => ({ default: module.CodeMirrorEditor })),
+);
 
 export const EditorPanel = memo(
   ({
@@ -111,16 +114,18 @@ export const EditorPanel = memo(
                 )}
               </PanelHeader>
               <div className="h-full flex-1 overflow-hidden">
-                <CodeMirrorEditor
-                  theme={theme}
-                  editable={!isStreaming && editorDocument !== undefined}
-                  settings={editorSettings}
-                  doc={editorDocument}
-                  autoFocusOnDocumentChange={!isMobile()}
-                  onScroll={onEditorScroll}
-                  onChange={onEditorChange}
-                  onSave={onFileSave}
-                />
+                <Suspense fallback={<p className="p-4">Loading editor...</p>}>
+                  <CodeMirrorEditor
+                    theme={theme}
+                    editable={!isStreaming && editorDocument !== undefined}
+                    settings={editorSettings}
+                    doc={editorDocument}
+                    autoFocusOnDocumentChange={!isMobile()}
+                    onScroll={onEditorScroll}
+                    onChange={onEditorChange}
+                    onSave={onFileSave}
+                  />
+                </Suspense>
               </div>
             </Panel>
           </PanelGroup>

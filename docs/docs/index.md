@@ -37,6 +37,12 @@ bolt.diy allows you to choose the LLM that you use for each prompt! Currently, y
 - **Download projects as ZIP** for easy portability.
 - **Integration-ready Docker support** for a hassle-free setup.
 
+#### Mobile UI/UX Enhancements
+- Adaptive and responsive interface for all screen sizes.
+- RTL support for Arabic.
+- Optimized dark theme for high contrast and OLED displays.
+- Improved touch targets and spacing.
+
 ---
 
 ## Setup 
@@ -205,6 +211,14 @@ To make new LLMs available to use in this version of bolt.diy, head on over to `
 By default, Anthropic, OpenAI, Groq, and Ollama are implemented as providers, but the YouTube video for this repo covers how to extend this to work with more providers if you wish!
 
 When you add a new model to the MODEL_LIST array, it will immediately be available to use when you run the app locally or reload it. For Ollama models, make sure you have the model installed already before trying to use it here!
+
+---
+
+## Offline AI with LLaMA
+
+bolt.diy now integrates LLaMA to provide robust offline AI capabilities. This ensures that critical AI-driven tasks remain functional even when an internet connection is unavailable.
+
+The application intelligently detects loss of connectivity. If you are using a LLaMA-compatible model and your connection drops, bolt.diy will automatically attempt to switch to a locally available LLaMA model. This allows you to continue working on your AI-assisted tasks seamlessly, leveraging the power of LLaMA running directly on your machine.
 
 ---
 

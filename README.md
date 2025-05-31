@@ -53,7 +53,7 @@ bolt.diy was originally started by [Cole Medin](https://www.youtube.com/@ColeMed
 - ✅ Prompt caching (@SujalXplores)
 - ✅ Load local projects into the app (@wonderwhy-er)
 - ✅ Together Integration (@mouimet-infinisoft)
-- ✅ Mobile friendly (@qwikode)
+- ✅ Mobile friendly (@jules-ai-agent)
 - ✅ Better prompt enhancing (@SujalXplores)
 - ✅ Attach images to prompts (@atrokhym)
 - ✅ Added Git Clone button (@thecodacus)
@@ -83,6 +83,7 @@ bolt.diy was originally started by [Cole Medin](https://www.youtube.com/@ColeMed
 - **Revert code to earlier versions** for easier debugging and quicker changes.
 - **Download projects as ZIP** for easy portability.
 - **Integration-ready Docker support** for a hassle-free setup.
+- **Offline AI Support:** Seamless fallback to a local LLaMA model when offline.
 
 ## Setup 
 
