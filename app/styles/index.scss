@@ -22,3 +22,75 @@ body {
   // --secondary-color: rgba(138, 43, 226, var(--gradient-opacity));
   // --accent-color: rgba(180, 170, 220, var(--gradient-opacity));
 }
+
+/* Example Media Queries */
+body {
+  font-size: 16px;
+}
+
+@media (max-width: var(--breakpoint-lg)) {
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: var(--breakpoint-md)) {
+  body {
+    font-size: 14px;
+  }
+
+  /* Example: Adjust chat width for smaller screens */
+  :root {
+    --chat-min-width: 100%;
+    --workbench-width: 100%;
+    --workbench-left: 0;
+  }
+}
+
+@media (max-width: var(--breakpoint-sm)) {
+  body {
+    font-size: 13px;
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+
+  /* Example: Adjust margin for RTL */
+  .some-element {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+}
+
+/* Improve Touch Targets */
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  min-height: 44px; /* Minimum touch target size */
+  min-width: 44px; /* Minimum touch target size */
+  padding: 0.5rem 1rem; /* Add some padding */
+}
+
+/* Example for icon buttons if they exist */
+.icon-button { /* Replace with actual selector if available */
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.25rem; /* Adjust padding for icons */
+}
+
+/* Ensure sufficient spacing between interactive elements - this is highly contextual */
+/* As an example, let's assume adjacent buttons should have some margin */
+button + button,
+[role="button"] + [role="button"] {
+  margin-left: 8px;
+}
+
+[dir="rtl"] button + button,
+[dir="rtl"] [role="button"] + [role="button"] {
+  margin-left: 0;
+  margin-right: 8px;
+}

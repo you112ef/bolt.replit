@@ -13,6 +13,7 @@ import OpenAIProvider from './providers/openai';
 import PerplexityProvider from './providers/perplexity';
 import TogetherProvider from './providers/together';
 import XAIProvider from './providers/xai';
+import { LlamaProvider } from './providers/llama';
 
 export {
   AnthropicProvider,
@@ -30,4 +31,5 @@ export {
   XAIProvider,
   TogetherProvider,
   LMStudioProvider,
+  LlamaProvider,
 };
